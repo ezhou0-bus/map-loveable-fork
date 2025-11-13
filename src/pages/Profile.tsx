@@ -85,6 +85,9 @@ const Profile = () => {
   const name = profile?.name || 'Guest User';
   const photo = profile?.photo || profilePhoto;
 
+  console.log('Profile state in Profile page:', profile);
+  console.log('Name being displayed:', name);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background pb-20">
       {/* Header */}
