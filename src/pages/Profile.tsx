@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Heart, Sparkles, MapPin, Calendar, TrendingUp, Award, Pencil } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ArrowLeft, Heart, Sparkles, MapPin, Calendar, TrendingUp, Award, Pencil, LogOut } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,6 +9,9 @@ import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import profilePhoto from '@/assets/profile-photo.png';
 import { EditProfileDialog } from '@/components/EditProfileDialog';
+import { useProfile } from '@/hooks/useProfile';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 const savedEvents = [
   {
@@ -44,15 +47,43 @@ const impactStats = {
 };
 
 const Profile = () => {
-  const [name, setName] = useState('Starr Marcello');
-  const [photo, setPhoto] = useState(profilePhoto);
+  const { profile, loading, updateProfile } = useProfile();
   const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const impactPercentage = (impactStats.itemsGiven / impactStats.nextMilestone) * 100;
 
-  const handleSaveProfile = (newName: string, newPhoto: string) => {
-    setName(newName);
-    setPhoto(newPhoto);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        navigate('/auth');
+      }
+    });
+  }, [navigate]);
+
+  const handleSaveProfile = async (newName: string, newPhoto: string) => {
+    await updateProfile(newName, newPhoto);
   };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    toast({
+      title: "Logged out",
+      description: "You've been successfully logged out",
+    });
+    navigate('/auth');
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background flex items-center justify-center">
+        <p className="text-muted-foreground">Loading profile...</p>
+      </div>
+    );
+  }
+
+  const name = profile?.name || 'Guest User';
+  const photo = profile?.photo || profilePhoto;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background pb-20">
@@ -63,15 +94,25 @@ const Profile = () => {
           <div className="absolute bottom-0 right-0 w-40 h-40 bg-primary-foreground rounded-full blur-3xl" />
         </div>
         
-        <Link to="/">
+        <div className="flex items-center justify-between mb-4">
+          <Link to="/">
+            <motion.button
+              className="flex items-center gap-2 text-primary-foreground/90 hover:text-primary-foreground"
+              whileHover={{ x: -4 }}
+            >
+              <ArrowLeft className="w-5 h-5" />
+              <span className="text-sm">Back to Map</span>
+            </motion.button>
+          </Link>
           <motion.button
-            className="mb-4 flex items-center gap-2 text-primary-foreground/90 hover:text-primary-foreground"
-            whileHover={{ x: -4 }}
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-primary-foreground/90 hover:text-primary-foreground"
+            whileHover={{ scale: 1.05 }}
           >
-            <ArrowLeft className="w-5 h-5" />
-            <span className="text-sm">Back to Map</span>
+            <LogOut className="w-5 h-5" />
+            <span className="text-sm">Logout</span>
           </motion.button>
-        </Link>
+        </div>
 
         <div className="relative flex flex-col items-center gap-4">
           <motion.div

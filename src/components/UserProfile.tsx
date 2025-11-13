@@ -1,9 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { X, Award, TrendingUp, MapPin, Calendar, Flame, Star, Heart } from 'lucide-react';
-import { Avatar, AvatarFallback } from './ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
+import { useProfile } from '@/hooks/useProfile';
+import profilePhoto from '@/assets/profile-photo.png';
 
 interface UserProfileProps {
   onClose: () => void;
@@ -50,9 +52,14 @@ const recentActivity = [
 ];
 
 export function UserProfile({ onClose }: UserProfileProps) {
+  const { profile } = useProfile();
   const totalDonations = 25;
   const currentStreak = 3;
   const totalImpact = 150;
+  
+  const name = profile?.name || 'Guest User';
+  const photo = profile?.photo || profilePhoto;
+  const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
 
   return (
     <>
@@ -84,10 +91,11 @@ export function UserProfile({ onClose }: UserProfileProps) {
 
           <div className="flex flex-col items-center gap-4">
             <Avatar className="w-24 h-24 border-4 border-card shadow-lg">
-              <AvatarFallback className="bg-card text-primary text-2xl">JD</AvatarFallback>
+              <AvatarImage src={photo} alt={name} />
+              <AvatarFallback className="bg-card text-primary text-2xl">{initials}</AvatarFallback>
             </Avatar>
             <div className="text-center">
-              <h2 className="text-primary-foreground">Jamie Doe</h2>
+              <h2 className="text-primary-foreground">{name}</h2>
               <p className="text-primary-foreground/80 text-sm">Member since Nov 2024</p>
             </div>
           </div>
