@@ -28,19 +28,12 @@ export const useProfile = () => {
         .eq('id', user.id)
         .maybeSingle();
 
-      if (error) {
-        console.error('Error fetching profile:', error);
-        throw error;
-      }
+      if (error) throw error;
 
       if (data) {
-        console.log('Profile loaded:', data);
         setProfile(data);
-      } else {
-        console.log('No profile data found for user:', user.id);
       }
     } catch (error: any) {
-      console.error('Profile fetch error:', error);
       toast({
         title: "Error loading profile",
         description: error.message,
