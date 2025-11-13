@@ -2,6 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --background: 48 100% 99%;
+    --foreground: 0 0% 18%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 18%;
+    --primary: 44 98% 54%;
+    --primary-foreground: 0 0% 18%;
+    --secondary: 44 100% 94%;
+    --secondary-foreground: 0 0% 18%;
+    --muted: 48 33% 96%;
+    --muted-foreground: 0 0% 46%;
+    --accent: 14 100% 70%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 348 75% 47%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 92%;
+    --input: 0 0% 92%;
+    --ring: 44 98% 54%;
+    --radius: 1rem;
+    --chart-1: 44 98% 54%;
+    --chart-2: 14 100% 70%;
+    --chart-3: 45 100% 65%;
+    --chart-4: 123 38% 66%;
+    --chart-5: 207 89% 67%;
+  }
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 12%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 40%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
