@@ -50,8 +50,8 @@ export const useProfile = () => {
       
       if (!user) throw new Error('Not authenticated');
 
-      const { error } = await supabase
-        .from('profiles')
+      const { error } = await (supabase
+        .from('profiles') as any)
         .update({ name, photo })
         .eq('id', user.id);
 
