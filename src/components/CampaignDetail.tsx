@@ -61,7 +61,7 @@ export function CampaignDetail({ campaign, onClose }: CampaignDetailProps) {
 
           {/* Close Button */}
           <motion.button
-            className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg"
+            className="absolute top-4 right-4 bg-card/90 backdrop-blur-sm rounded-full p-3 shadow-lg"
             onClick={onClose}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -72,14 +72,14 @@ export function CampaignDetail({ campaign, onClose }: CampaignDetailProps) {
           {/* Actions */}
           <div className="absolute top-4 left-4 flex gap-2">
             <motion.button
-              className="bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg"
+              className="bg-card/90 backdrop-blur-sm rounded-full p-3 shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <Heart className="w-5 h-5 text-accent" />
             </motion.button>
             <motion.button
-              className="bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg"
+              className="bg-card/90 backdrop-blur-sm rounded-full p-3 shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

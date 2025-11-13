@@ -50,7 +50,7 @@ export function CampaignCard({ campaign, onClick }: CampaignCardProps) {
           <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
             {getUrgencyBadge(campaign.urgency)}
             <motion.button
-              className="bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md"
+              className="bg-card/90 backdrop-blur-sm rounded-full p-2 shadow-md"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={(e) => {
