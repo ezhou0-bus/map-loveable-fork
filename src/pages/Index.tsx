@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { SlidersHorizontal, User } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { CampaignCard } from '@/components/CampaignCard';
 import { CampaignDetail } from '@/components/CampaignDetail';
 import { MapView } from '@/components/MapView';
+import { FilterPanel } from '@/components/FilterPanel';
+import { UserProfile } from '@/components/UserProfile';
+import { CommunityFeed } from '@/components/CommunityFeed';
 import { Campaign } from '@/types/campaign';
 
 // Sample data
@@ -98,6 +103,32 @@ const sampleCampaigns: Campaign[] = [
 const Index = () => {
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const [selectedDrive, setSelectedDrive] = useState<Campaign | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const [filters, setFilters] = useState({
+    categories: [] as string[],
+    maxDistance: 10,
+    urgency: [] as string[],
+    showOnlyActive: false,
+  });
+
+  // Filter campaigns based on active filters
+  const filteredCampaigns = sampleCampaigns.filter((campaign) => {
+    if (filters.categories.length > 0 && !filters.categories.includes(campaign.category)) {
+      return false;
+    }
+    if (campaign.distance > filters.maxDistance) {
+      return false;
+    }
+    if (filters.urgency.length > 0) {
+      const urgencyMap: Record<string, string> = { Low: 'low', Medium: 'medium', High: 'high' };
+      const matchesUrgency = filters.urgency.some(
+        (u) => urgencyMap[u] === campaign.urgency
+      );
+      if (!matchesUrgency) return false;
+    }
+    return true;
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -106,37 +137,60 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <h1 className="text-3xl font-bold text-primary">GiveGo</h1>
-            <p className="text-sm text-muted-foreground">Discover local donation drives</p>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setShowFilters(true)}
+                className="rounded-full"
+              >
+                <SlidersHorizontal className="w-5 h-5" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setShowProfile(true)}
+                className="rounded-full"
+              >
+                <User className="w-5 h-5" />
+              </Button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-[calc(100vh-200px)]">
-          {/* Map Section */}
-          <div className="lg:sticky lg:top-24 h-[500px] lg:h-[calc(100vh-200px)]">
-            <MapView
-              drives={sampleCampaigns}
-              onDriveClick={(drive) => {
-                setSelectedDrive(drive);
-                setSelectedCampaign(drive);
-              }}
-              selectedDrive={selectedDrive}
-            />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column - Map & Feed */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Map Section */}
+            <div className="lg:sticky lg:top-24 h-[500px] lg:h-[600px]">
+              <MapView
+                drives={filteredCampaigns}
+                onDriveClick={(drive) => {
+                  setSelectedDrive(drive);
+                  setSelectedCampaign(drive);
+                }}
+                selectedDrive={selectedDrive}
+              />
+            </div>
+
+            {/* Community Feed */}
+            <CommunityFeed />
           </div>
 
-          {/* Campaigns List */}
+          {/* Right Column - Campaigns List */}
           <div className="space-y-6">
             <div>
               <h2 className="text-2xl font-semibold mb-2">Active Drives Near You</h2>
               <p className="text-muted-foreground">
-                {sampleCampaigns.length} donation opportunities in your area
+                {filteredCampaigns.length} donation {filteredCampaigns.length === 1 ? 'opportunity' : 'opportunities'} in your area
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
-              {sampleCampaigns.map((campaign) => (
+            <div className="space-y-4">
+              {filteredCampaigns.map((campaign) => (
                 <CampaignCard
                   key={campaign.id}
                   campaign={campaign}
@@ -148,7 +202,7 @@ const Index = () => {
         </div>
       </main>
 
-      {/* Campaign Detail Modal */}
+      {/* Modals */}
       <AnimatePresence>
         {selectedCampaign && (
           <CampaignDetail
@@ -159,7 +213,15 @@ const Index = () => {
             }}
           />
         )}
+        {showProfile && <UserProfile onClose={() => setShowProfile(false)} />}
       </AnimatePresence>
+
+      <FilterPanel
+        isOpen={showFilters}
+        onClose={() => setShowFilters(false)}
+        filters={filters}
+        onFilterChange={setFilters}
+      />
     </div>
   );
 };

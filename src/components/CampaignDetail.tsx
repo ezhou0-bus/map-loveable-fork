@@ -285,9 +285,6 @@ export function CampaignDetail({ campaign, onClose }: CampaignDetailProps) {
           <DonationFlow
             campaign={campaign}
             onClose={() => setShowDonationFlow(false)}
-            onComplete={() => {
-              // Handle completion
-            }}
           />
         )}
       </AnimatePresence>
