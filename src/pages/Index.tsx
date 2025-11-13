@@ -8,7 +8,6 @@ import {
   Search,
   Heart,
 } from 'lucide-react';
-import givegoLogo from '@/assets/givego-logo.png';
 import { MapView } from '@/components/MapView';
 import { FilterPanel } from '@/components/FilterPanel';
 import { CampaignCard } from '@/components/CampaignCard';
@@ -248,15 +247,14 @@ export default function Index() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <motion.div
-              className="flex items-center"
+              className="flex items-center gap-2"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              <img 
-                src={givegoLogo} 
-                alt="GiveGo" 
-                className="h-8 w-auto"
-              />
+              <div className="bg-primary rounded-full p-2">
+                <Heart className="w-6 h-6 text-primary-foreground" fill="currentColor" />
+              </div>
+              <h1 className="text-2xl font-bold text-primary">GiveGo</h1>
             </motion.div>
 
             {/* Search */}
