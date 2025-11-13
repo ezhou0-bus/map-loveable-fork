@@ -2,10 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Heart, Sparkles, MapPin, Calendar, TrendingUp, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import profilePhoto from '@/assets/profile-photo.png';
 
 const savedEvents = [
   {
@@ -69,12 +70,13 @@ const Profile = () => {
             transition={{ type: 'spring', damping: 15 }}
           >
             <Avatar className="w-24 h-24 border-4 border-background shadow-2xl">
-              <AvatarFallback className="bg-card text-primary text-3xl font-semibold">JD</AvatarFallback>
+              <AvatarImage src={profilePhoto} alt="Starr Marcello" />
+              <AvatarFallback className="bg-card text-primary text-3xl font-semibold">SM</AvatarFallback>
             </Avatar>
           </motion.div>
           
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-primary-foreground mb-1">Jamie Doe</h1>
+            <h1 className="text-2xl font-bold text-primary-foreground mb-1">Starr Marcello</h1>
           </div>
         </div>
       </div>
