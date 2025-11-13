@@ -29,8 +29,8 @@
     --muted: 40 25% 94%;
     --muted-foreground: 35 8% 50%;
     
-    /* Accent: Warm coral for moments of delight */
-    --accent: 18 90% 70%;
+    /* Accent: Deep terracotta for moments of delight with better contrast */
+    --accent: 12 75% 52%;
     --accent-foreground: 0 0% 100%;
     
     /* Destructive */
@@ -56,10 +56,10 @@
     
     /* Charts */
     --chart-1: 43 96% 65%;
-    --chart-2: 18 90% 70%;
+    --chart-2: 12 75% 52%;
     --chart-3: 35 92% 72%;
     --chart-4: 25 85% 75%;
-    --chart-5: 12 88% 68%;
+    --chart-5: 165 65% 45%;
     
     /* Sidebar */
     --sidebar-background: 42 40% 97%;
@@ -91,7 +91,7 @@
     --muted: 30 15% 20%;
     --muted-foreground: 40 15% 65%;
     
-    --accent: 18 88% 68%;
+    --accent: 12 78% 55%;
     --accent-foreground: 0 0% 100%;
     
     --destructive: 0 68% 58%;
@@ -109,10 +109,10 @@
     --shadow-lifted: 0 8px 24px -6px hsl(43 92% 62% / 0.25);
     
     --chart-1: 43 92% 62%;
-    --chart-2: 18 88% 68%;
+    --chart-2: 12 78% 55%;
     --chart-3: 35 88% 68%;
     --chart-4: 25 82% 72%;
-    --chart-5: 12 85% 65%;
+    --chart-5: 165 68% 48%;
     
     --sidebar-background: 30 18% 12%;
     --sidebar-foreground: 40 20% 88%;
