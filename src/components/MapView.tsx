@@ -96,12 +96,12 @@ export function MapView({ drives, onDriveClick, selectedDrive }: MapViewProps) {
               )}
               
               {/* Pin */}
-              <div className={`relative ${getUrgencyColor(drive.urgency)} rounded-full p-3 shadow-lg border-4 border-white`}>
-                <MapPin className="w-5 h-5 text-white" fill="white" />
+              <div className={`relative ${getUrgencyColor(drive.urgency)} rounded-full p-3 shadow-lg border-4 border-card`}>
+                <MapPin className="w-5 h-5 text-primary-foreground" fill="currentColor" />
                 
                 {/* Progress indicator */}
                 <motion.div
-                  className="absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-md"
+                  className="absolute -bottom-1 -right-1 bg-card rounded-full p-1 shadow-md"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: index * 0.05 + 0.2 }}
@@ -135,7 +135,7 @@ export function MapView({ drives, onDriveClick, selectedDrive }: MapViewProps) {
               {/* Hover Card */}
               {isSelected && (
                 <motion.div
-                  className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-white rounded-2xl shadow-xl p-4 z-10"
+                  className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-card rounded-2xl shadow-xl p-4 z-10"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.2 }}
@@ -161,7 +161,7 @@ export function MapView({ drives, onDriveClick, selectedDrive }: MapViewProps) {
                   </div>
                   {/* Arrow */}
                   <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1">
-                    <div className="w-3 h-3 bg-white rotate-45" />
+                    <div className="w-3 h-3 bg-card rotate-45" />
                   </div>
                 </motion.div>
               )}
@@ -173,14 +173,14 @@ export function MapView({ drives, onDriveClick, selectedDrive }: MapViewProps) {
       {/* Map Controls */}
       <div className="absolute bottom-6 right-6 flex flex-col gap-2">
         <motion.button
-          className="bg-white rounded-full p-3 shadow-lg"
+          className="bg-card rounded-full p-3 shadow-lg"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           <span className="text-lg">+</span>
         </motion.button>
         <motion.button
-          className="bg-white rounded-full p-3 shadow-lg"
+          className="bg-card rounded-full p-3 shadow-lg"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >

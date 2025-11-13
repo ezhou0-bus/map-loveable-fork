@@ -74,7 +74,7 @@ export function UserProfile({ onClose }: UserProfileProps) {
         {/* Header */}
         <div className="relative bg-gradient-to-br from-primary to-accent p-8 text-primary-foreground">
           <motion.button
-            className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-3"
+            className="absolute top-4 right-4 bg-card/20 backdrop-blur-sm rounded-full p-3"
             onClick={onClose}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -83,12 +83,12 @@ export function UserProfile({ onClose }: UserProfileProps) {
           </motion.button>
 
           <div className="flex flex-col items-center gap-4">
-            <Avatar className="w-24 h-24 border-4 border-white shadow-lg">
-              <AvatarFallback className="bg-white text-primary text-2xl">JD</AvatarFallback>
+            <Avatar className="w-24 h-24 border-4 border-card shadow-lg">
+              <AvatarFallback className="bg-card text-primary text-2xl">JD</AvatarFallback>
             </Avatar>
             <div className="text-center">
-              <h2 className="text-white">Jamie Doe</h2>
-              <p className="text-white/80 text-sm">Member since Nov 2024</p>
+              <h2 className="text-primary-foreground">Jamie Doe</h2>
+              <p className="text-primary-foreground/80 text-sm">Member since Nov 2024</p>
             </div>
           </div>
         </div>
@@ -129,7 +129,7 @@ export function UserProfile({ onClose }: UserProfileProps) {
             >
               <div className="flex justify-center mb-2">
                 <div className="bg-chart-4 rounded-full p-2">
-                  <Heart className="w-5 h-5 text-white" />
+                  <Heart className="w-5 h-5 text-primary-foreground" />
                 </div>
               </div>
               <div className="text-2xl text-chart-4">{totalImpact}</div>
