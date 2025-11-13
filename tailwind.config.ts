@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        body: ["Nunito", "system-ui", "sans-serif"],
+        display: ["Nunito", "system-ui", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -59,9 +63,17 @@ export default {
         },
       },
       borderRadius: {
+        xl: "1.5rem",
+        "2xl": "2rem",
+        "3xl": "3rem",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        soft: "var(--shadow-soft)",
+        warm: "var(--shadow-warm)",
+        lifted: "var(--shadow-lifted)",
       },
       keyframes: {
         "accordion-down": {
@@ -80,10 +92,48 @@ export default {
             height: "0",
           },
         },
+        "bounce-gentle": {
+          "0%, 100%": {
+            transform: "translateY(0)",
+          },
+          "50%": {
+            transform: "translateY(-8px)",
+          },
+        },
+        float: {
+          "0%, 100%": {
+            transform: "translateY(0) rotate(0deg)",
+          },
+          "50%": {
+            transform: "translateY(-12px) rotate(2deg)",
+          },
+        },
+        "pulse-soft": {
+          "0%, 100%": {
+            opacity: "1",
+            transform: "scale(1)",
+          },
+          "50%": {
+            opacity: "0.8",
+            transform: "scale(1.02)",
+          },
+        },
+        shimmer: {
+          "0%": {
+            backgroundPosition: "-200% 0",
+          },
+          "100%": {
+            backgroundPosition: "200% 0",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "bounce-gentle": "bounce-gentle 2s ease-in-out infinite",
+        float: "float 3s ease-in-out infinite",
+        "pulse-soft": "pulse-soft 2s ease-in-out infinite",
+        shimmer: "shimmer 3s ease-in-out infinite",
       },
     },
   },

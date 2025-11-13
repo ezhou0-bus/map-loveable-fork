@@ -2,110 +2,126 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design System - Warm Yellow Theme (Bumble-inspired) */
+/* Design System - GiveGo: Warm, Optimistic, Community-Centered */
 @layer base {
   :root {
-    /* Warm neutral backgrounds */
-    --background: 35 25% 98%;
-    --foreground: 25 15% 20%;
+    /* Soft, sunlit backgrounds with gentle cream tones */
+    --background: 42 40% 97%;
+    --foreground: 30 15% 25%;
     
-    /* Card surfaces with warm tint */
-    --card: 0 0% 100%;
-    --card-foreground: 25 15% 20%;
+    /* Card surfaces - clean white with subtle warmth */
+    --card: 45 30% 99%;
+    --card-foreground: 30 15% 25%;
     
     /* Popovers */
-    --popover: 0 0% 100%;
-    --popover-foreground: 25 15% 20%;
+    --popover: 45 30% 99%;
+    --popover-foreground: 30 15% 25%;
     
-    /* Primary: Warm sunny yellow (Bumble-style) */
-    --primary: 45 95% 58%;
-    --primary-foreground: 25 15% 20%;
+    /* Primary: Soft sunlit yellow - warm and welcoming */
+    --primary: 43 96% 65%;
+    --primary-foreground: 30 15% 25%;
     
-    /* Secondary: Light warm yellow tint */
-    --secondary: 45 85% 92%;
-    --secondary-foreground: 25 15% 20%;
+    /* Secondary: Gentle peach for supporting actions */
+    --secondary: 25 85% 88%;
+    --secondary-foreground: 30 15% 25%;
     
-    /* Muted: Warm neutral backgrounds */
-    --muted: 35 20% 95%;
-    --muted-foreground: 25 12% 45%;
+    /* Muted: Soft warm neutrals */
+    --muted: 40 25% 94%;
+    --muted-foreground: 35 8% 50%;
     
-    /* Accent: Soft coral/orange for urgency indicators */
-    --accent: 15 88% 65%;
+    /* Accent: Warm coral for moments of delight */
+    --accent: 18 90% 70%;
     --accent-foreground: 0 0% 100%;
     
     /* Destructive */
-    --destructive: 0 75% 55%;
+    --destructive: 0 70% 60%;
     --destructive-foreground: 0 0% 100%;
     
-    /* Borders and inputs with warm tint */
-    --border: 35 15% 88%;
-    --input: 35 15% 88%;
-    --ring: 45 95% 58%;
+    /* Borders and inputs - subtle and soft */
+    --border: 40 20% 90%;
+    --input: 40 20% 90%;
+    --ring: 43 96% 65%;
     
-    /* Border radius */
-    --radius: 1rem;
+    /* Border radius - rounded and friendly */
+    --radius: 1.25rem;
+    
+    /* Gradient tokens for depth and warmth */
+    --gradient-warm: linear-gradient(135deg, hsl(43 96% 65%) 0%, hsl(35 92% 72%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(42 40% 97%) 0%, hsl(40 35% 95%) 100%);
+    
+    /* Shadow tokens - soft and welcoming */
+    --shadow-soft: 0 2px 8px -2px hsl(43 96% 65% / 0.1);
+    --shadow-warm: 0 4px 16px -4px hsl(43 96% 65% / 0.15);
+    --shadow-lifted: 0 8px 24px -6px hsl(43 96% 65% / 0.2);
     
     /* Charts */
-    --chart-1: 45 95% 58%;
-    --chart-2: 15 88% 65%;
-    --chart-3: 35 85% 68%;
-    --chart-4: 25 75% 65%;
-    --chart-5: 10 80% 70%;
+    --chart-1: 43 96% 65%;
+    --chart-2: 18 90% 70%;
+    --chart-3: 35 92% 72%;
+    --chart-4: 25 85% 75%;
+    --chart-5: 12 88% 68%;
     
     /* Sidebar */
-    --sidebar-background: 35 25% 98%;
-    --sidebar-foreground: 25 15% 25%;
-    --sidebar-primary: 45 95% 58%;
-    --sidebar-primary-foreground: 25 15% 20%;
-    --sidebar-accent: 45 85% 92%;
-    --sidebar-accent-foreground: 25 15% 20%;
-    --sidebar-border: 35 15% 88%;
-    --sidebar-ring: 45 95% 58%;
+    --sidebar-background: 42 40% 97%;
+    --sidebar-foreground: 30 15% 30%;
+    --sidebar-primary: 43 96% 65%;
+    --sidebar-primary-foreground: 30 15% 25%;
+    --sidebar-accent: 40 25% 94%;
+    --sidebar-accent-foreground: 30 15% 25%;
+    --sidebar-border: 40 20% 90%;
+    --sidebar-ring: 43 96% 65%;
   }
 
   .dark {
-    --background: 25 15% 10%;
-    --foreground: 35 10% 95%;
+    --background: 30 18% 12%;
+    --foreground: 40 20% 92%;
     
-    --card: 25 15% 12%;
-    --card-foreground: 35 10% 95%;
+    --card: 30 18% 15%;
+    --card-foreground: 40 20% 92%;
     
-    --popover: 25 15% 12%;
-    --popover-foreground: 35 10% 95%;
+    --popover: 30 18% 15%;
+    --popover-foreground: 40 20% 92%;
     
-    --primary: 45 90% 60%;
-    --primary-foreground: 25 15% 15%;
+    --primary: 43 92% 62%;
+    --primary-foreground: 30 15% 20%;
     
-    --secondary: 25 15% 18%;
-    --secondary-foreground: 35 10% 95%;
+    --secondary: 30 18% 20%;
+    --secondary-foreground: 40 20% 92%;
     
-    --muted: 25 12% 18%;
-    --muted-foreground: 35 8% 60%;
+    --muted: 30 15% 20%;
+    --muted-foreground: 40 15% 65%;
     
-    --accent: 15 85% 60%;
+    --accent: 18 88% 68%;
     --accent-foreground: 0 0% 100%;
     
-    --destructive: 0 70% 50%;
+    --destructive: 0 68% 58%;
     --destructive-foreground: 0 0% 100%;
     
-    --border: 25 12% 22%;
-    --input: 25 12% 22%;
-    --ring: 45 90% 60%;
+    --border: 30 15% 25%;
+    --input: 30 15% 25%;
+    --ring: 43 92% 62%;
     
-    --chart-1: 45 90% 60%;
-    --chart-2: 15 85% 60%;
-    --chart-3: 35 80% 65%;
-    --chart-4: 25 70% 60%;
-    --chart-5: 10 75% 65%;
+    --gradient-warm: linear-gradient(135deg, hsl(43 92% 62%) 0%, hsl(35 88% 68%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(30 18% 12%) 0%, hsl(30 15% 10%) 100%);
     
-    --sidebar-background: 25 15% 10%;
-    --sidebar-foreground: 35 10% 85%;
-    --sidebar-primary: 45 90% 60%;
-    --sidebar-primary-foreground: 25 15% 15%;
-    --sidebar-accent: 25 15% 18%;
-    --sidebar-accent-foreground: 35 10% 95%;
-    --sidebar-border: 25 12% 22%;
-    --sidebar-ring: 45 90% 60%;
+    --shadow-soft: 0 2px 8px -2px hsl(43 92% 62% / 0.15);
+    --shadow-warm: 0 4px 16px -4px hsl(43 92% 62% / 0.2);
+    --shadow-lifted: 0 8px 24px -6px hsl(43 92% 62% / 0.25);
+    
+    --chart-1: 43 92% 62%;
+    --chart-2: 18 88% 68%;
+    --chart-3: 35 88% 68%;
+    --chart-4: 25 82% 72%;
+    --chart-5: 12 85% 65%;
+    
+    --sidebar-background: 30 18% 12%;
+    --sidebar-foreground: 40 20% 88%;
+    --sidebar-primary: 43 92% 62%;
+    --sidebar-primary-foreground: 30 15% 20%;
+    --sidebar-accent: 30 18% 20%;
+    --sidebar-accent-foreground: 40 20% 92%;
+    --sidebar-border: 30 15% 25%;
+    --sidebar-ring: 43 92% 62%;
   }
 }
 
@@ -115,6 +131,75 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body;
+  }
+  
+  /* Smooth transitions for interactive elements */
+  button, a, input, textarea {
+    @apply transition-all duration-200 ease-out;
+  }
+}
+
+/* Custom utility classes for GiveGo theme */
+@layer utilities {
+  .gradient-warm {
+    background: var(--gradient-warm);
+  }
+  
+  .gradient-subtle {
+    background: var(--gradient-subtle);
+  }
+  
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .shadow-warm {
+    box-shadow: var(--shadow-warm);
+  }
+  
+  .shadow-lifted {
+    box-shadow: var(--shadow-lifted);
+  }
+  
+  .animate-bounce-gentle {
+    animation: bounce-gentle 2s ease-in-out infinite;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-pulse-soft {
+    animation: pulse-soft 2s ease-in-out infinite;
+  }
+}
+
+@keyframes bounce-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
   }
 }
