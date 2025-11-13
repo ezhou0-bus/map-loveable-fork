@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Heart, Sparkles, MapPin, Calendar, TrendingUp, Award } from 'lucide-react';
+import { ArrowLeft, Heart, Sparkles, MapPin, Calendar, TrendingUp, Award, Pencil } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { Button } from '@/components/ui/button';
 import profilePhoto from '@/assets/profile-photo.png';
+import { EditProfileDialog } from '@/components/EditProfileDialog';
 
 const savedEvents = [
   {
@@ -42,7 +44,15 @@ const impactStats = {
 };
 
 const Profile = () => {
+  const [name, setName] = useState('Starr Marcello');
+  const [photo, setPhoto] = useState(profilePhoto);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
   const impactPercentage = (impactStats.itemsGiven / impactStats.nextMilestone) * 100;
+
+  const handleSaveProfile = (newName: string, newPhoto: string) => {
+    setName(newName);
+    setPhoto(newPhoto);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background pb-20">
@@ -68,15 +78,26 @@ const Profile = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', damping: 15 }}
+            className="relative"
           >
             <Avatar className="w-24 h-24 border-4 border-background shadow-2xl">
-              <AvatarImage src={profilePhoto} alt="Starr Marcello" />
-              <AvatarFallback className="bg-card text-primary text-3xl font-semibold">SM</AvatarFallback>
+              <AvatarImage src={photo} alt={name} />
+              <AvatarFallback className="bg-card text-primary text-3xl font-semibold">
+                {name.split(' ').map(n => n[0]).join('').toUpperCase()}
+              </AvatarFallback>
             </Avatar>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setEditDialogOpen(true)}
+              className="absolute -bottom-1 -right-1 bg-primary text-primary-foreground rounded-full p-2 shadow-lg"
+            >
+              <Pencil className="w-4 h-4" />
+            </motion.button>
           </motion.div>
           
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-primary-foreground mb-1">Starr Marcello</h1>
+            <h1 className="text-2xl font-bold text-primary-foreground mb-1">{name}</h1>
           </div>
         </div>
       </div>
@@ -267,6 +288,14 @@ const Profile = () => {
           </p>
         </motion.div>
       </div>
+
+      <EditProfileDialog
+        open={editDialogOpen}
+        onOpenChange={setEditDialogOpen}
+        currentName={name}
+        currentPhoto={photo}
+        onSave={handleSaveProfile}
+      />
     </div>
   );
 };
