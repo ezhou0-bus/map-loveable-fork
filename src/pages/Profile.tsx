@@ -75,10 +75,6 @@ const Profile = () => {
           
           <div className="text-center">
             <h1 className="text-2xl font-bold text-primary-foreground mb-1">Jamie Doe</h1>
-            <p className="text-primary-foreground/80 text-sm flex items-center gap-2 justify-center">
-              <Heart className="w-4 h-4" />
-              <span>Loves giving clothing & food</span>
-            </p>
           </div>
         </div>
       </div>
