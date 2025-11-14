@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   MapIcon,
@@ -246,16 +247,18 @@ export default function Index() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <motion.div
-              className="flex items-center gap-2"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-            >
-              <div className="bg-primary rounded-full p-2">
-                <Heart className="w-6 h-6 text-primary-foreground" fill="currentColor" />
-              </div>
-              <h1 className="text-2xl font-bold text-primary">GiveGo</h1>
-            </motion.div>
+            <Link to="/about">
+              <motion.div
+                className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+              >
+                <div className="bg-primary rounded-full p-2">
+                  <Heart className="w-6 h-6 text-primary-foreground" fill="currentColor" />
+                </div>
+                <h1 className="text-2xl font-bold text-primary">GiveGo</h1>
+              </motion.div>
+            </Link>
 
             {/* Search */}
             <motion.div
