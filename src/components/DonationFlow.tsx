@@ -235,48 +235,104 @@ export function DonationFlow({ campaign, onClose }: DonationFlowProps) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="p-6 space-y-6 text-center"
+              className="p-6 space-y-6 text-center relative overflow-hidden"
             >
-              {/* Success Animation */}
-              <div className="py-8">
+              {/* Fireworks Animation - Multiple bursts */}
+              {[...Array(12)].map((_, i) => (
                 <motion.div
-                  className="relative inline-block"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: 'spring', damping: 10 }}
+                  key={`firework-${i}`}
+                  className="absolute top-1/2 left-1/2 w-2 h-2 rounded-full bg-primary"
+                  initial={{ 
+                    x: 0, 
+                    y: 0, 
+                    scale: 0,
+                    opacity: 1 
+                  }}
+                  animate={{
+                    x: Math.cos((i * 30) * Math.PI / 180) * 150,
+                    y: Math.sin((i * 30) * Math.PI / 180) * 150,
+                    scale: [0, 1.5, 0],
+                    opacity: [1, 1, 0],
+                  }}
+                  transition={{
+                    duration: 1.2,
+                    delay: 0.2 + (i * 0.05),
+                    ease: "easeOut"
+                  }}
+                />
+              ))}
+              
+              {/* Floating Sparkles */}
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={`sparkle-${i}`}
+                  className="absolute"
+                  style={{
+                    top: `${20 + Math.random() * 60}%`,
+                    left: `${20 + Math.random() * 60}%`,
+                  }}
+                  initial={{ scale: 0, rotate: 0 }}
+                  animate={{
+                    scale: [0, 1, 0],
+                    rotate: [0, 180, 360],
+                    opacity: [0, 1, 0],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    delay: 0.3 + (i * 0.1),
+                    repeat: Infinity,
+                    repeatDelay: 2,
+                  }}
                 >
-                  <div className="bg-primary rounded-full p-6">
-                    <CheckCircle2 className="w-16 h-16 text-primary-foreground" />
-                  </div>
-                  {/* Confetti */}
-                  {[...Array(8)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute top-1/2 left-1/2"
-                      initial={{ scale: 0, x: 0, y: 0 }}
-                      animate={{
-                        scale: [0, 1, 0],
-                        x: Math.cos((i * Math.PI) / 4) * 100,
-                        y: Math.sin((i * Math.PI) / 4) * 100,
-                      }}
-                      transition={{ duration: 1, ease: 'easeOut' }}
-                    >
-                      <Sparkles className="w-4 h-4 text-primary" />
-                    </motion.div>
-                  ))}
+                  <Sparkles className="w-4 h-4 text-primary" />
                 </motion.div>
-              </div>
+              ))}
 
-              {/* Message */}
-              <div className="space-y-2">
-                <h2>You just helped your neighborhood!</h2>
-                <p className="text-muted-foreground">
-                  Your donation has been logged and the organization has been notified
-                </p>
+              {/* Success Icon */}
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', delay: 0.3, damping: 12 }}
+                className="mx-auto w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center relative z-10"
+              >
+                <CheckCircle2 className="w-10 h-10 text-primary" />
+              </motion.div>
+
+              {/* Thank You Message */}
+              <div className="relative z-10 space-y-3">
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-2xl font-bold"
+                >
+                  Thank You! 🎉
+                </motion.h2>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-lg text-foreground font-medium"
+                >
+                  Your kindness is changing lives
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                  className="text-sm text-muted-foreground"
+                >
+                  {donationDetails.items} donated to {campaign.organization}
+                </motion.p>
               </div>
 
               {/* Stats Update */}
-              <div className="bg-primary/10 rounded-2xl p-4 space-y-3">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                className="bg-primary/10 rounded-2xl p-4 space-y-3 relative z-10"
+              >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-primary" />
@@ -291,12 +347,17 @@ export function DonationFlow({ campaign, onClose }: DonationFlowProps) {
                   </div>
                   <span className="text-sm text-primary">+1 Drive</span>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Auto-close notice */}
-              <p className="text-xs text-muted-foreground">
-                This window will close automatically...
-              </p>
+              {/* Closing Message */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="text-sm text-muted-foreground relative z-10"
+              >
+                Keep making a difference! ✨
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
