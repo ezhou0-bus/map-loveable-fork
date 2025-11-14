@@ -102,7 +102,10 @@ const Profile = () => {
         
         <div className="flex items-center justify-between mb-4">
           <motion.button
-            onClick={() => navigate('/')}
+            onClick={() => {
+              const done = localStorage.getItem('givego_onboarding_complete') === 'true';
+              navigate(done ? '/' : '/onboarding');
+            }}
             className="flex items-center gap-2 text-primary-foreground/90 hover:text-primary-foreground"
             whileHover={{ x: -4 }}
           >
