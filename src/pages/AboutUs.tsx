@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { Heart, ArrowLeft, Users, Sparkles, Shield, Target } from 'lucide-react';
+import { Heart, Users, Sparkles, Shield, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { BackButton } from '@/components/BackButton';
 
 export default function AboutUs() {
   return (
@@ -16,12 +17,7 @@ export default function AboutUs() {
               </div>
               <h1 className="text-2xl font-bold text-primary">GiveGo</h1>
             </Link>
-            <Button asChild variant="ghost" size="sm">
-              <Link to="/" className="flex items-center gap-2">
-                <ArrowLeft className="w-4 h-4" />
-                Back to Map
-              </Link>
-            </Button>
+            <BackButton label="Back to Map" variant="dark" />
           </div>
         </div>
       </header>
