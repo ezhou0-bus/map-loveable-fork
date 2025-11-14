@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Heart, Sparkles, MapPin, Calendar, TrendingUp, Award, Pencil, LogOut } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -101,15 +101,14 @@ const Profile = () => {
         </div>
         
         <div className="flex items-center justify-between mb-4">
-          <Link to="/">
-            <motion.button
-              className="flex items-center gap-2 text-primary-foreground/90 hover:text-primary-foreground"
-              whileHover={{ x: -4 }}
-            >
-              <ArrowLeft className="w-5 h-5" />
-              <span className="text-sm">Back to Map</span>
-            </motion.button>
-          </Link>
+          <motion.button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 text-primary-foreground/90 hover:text-primary-foreground"
+            whileHover={{ x: -4 }}
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span className="text-sm">Back to Map</span>
+          </motion.button>
           <motion.button
             onClick={handleLogout}
             className="flex items-center gap-2 text-primary-foreground/90 hover:text-primary-foreground"
