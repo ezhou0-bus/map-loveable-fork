@@ -324,6 +324,20 @@ export default function Index() {
         </div>
       </header>
 
+      {/* Tagline */}
+      <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border-b border-border">
+        <div className="container mx-auto px-4 py-6">
+          <motion.p
+            className="text-center text-lg md:text-xl font-medium text-primary"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Give easily. Give locally.
+          </motion.p>
+        </div>
+      </div>
+
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
