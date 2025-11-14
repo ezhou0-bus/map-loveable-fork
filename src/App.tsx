@@ -12,9 +12,12 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => {
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const hasCompletedOnboarding = localStorage.getItem("givego_onboarding_complete") === "true";
+  return hasCompletedOnboarding ? <>{children}</> : <Navigate to="/onboarding" replace />;
+};
 
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -24,7 +27,11 @@ const App = () => {
           <Routes>
             <Route 
               path="/" 
-              element={hasCompletedOnboarding ? <Index /> : <Navigate to="/onboarding" replace />} 
+              element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } 
             />
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/auth" element={<Auth />} />
