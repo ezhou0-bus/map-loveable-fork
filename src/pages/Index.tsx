@@ -8,6 +8,9 @@ import {
   User,
   Search,
   Heart,
+  Shirt,
+  Laptop,
+  Apple,
 } from 'lucide-react';
 import { MapView } from '@/components/MapView';
 import { FilterPanel } from '@/components/FilterPanel';
@@ -326,7 +329,7 @@ export default function Index() {
 
       {/* Tagline */}
       <div className="relative bg-gradient-to-br from-primary/10 via-background to-primary/5 border-b border-primary/10 overflow-hidden">
-        {/* Decorative floating hearts */}
+        {/* Decorative floating donation items */}
         <motion.div
           className="absolute top-4 left-[10%] text-primary/20"
           animate={{ 
@@ -339,7 +342,7 @@ export default function Index() {
             ease: "easeInOut"
           }}
         >
-          <Heart className="w-6 h-6" fill="currentColor" />
+          <Shirt className="w-6 h-6" />
         </motion.div>
         
         <motion.div
@@ -355,7 +358,7 @@ export default function Index() {
             delay: 0.5
           }}
         >
-          <Heart className="w-5 h-5" fill="currentColor" />
+          <Laptop className="w-5 h-5" />
         </motion.div>
 
         <motion.div
@@ -371,7 +374,7 @@ export default function Index() {
             delay: 1
           }}
         >
-          <Heart className="w-4 h-4" fill="currentColor" />
+          <Apple className="w-4 h-4" />
         </motion.div>
 
         <div className="container mx-auto px-4 py-8 relative z-10">
