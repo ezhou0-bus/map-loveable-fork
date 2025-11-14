@@ -46,6 +46,12 @@ const impactStats = {
   nextMilestone: 50
 };
 
+const neighborhoodRankings = [
+  { name: 'Logan Square', donations: 156, trend: 'up' },
+  { name: 'Wicker Park', donations: 142, trend: 'up' },
+  { name: 'Lincoln Park', donations: 128, trend: 'down' },
+];
+
 const Profile = () => {
   const { profile, loading, updateProfile } = useProfile();
   const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -207,6 +213,57 @@ const Profile = () => {
                   <div className="font-semibold text-foreground">Downtown & Riverside</div>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Neighborhood Rankings */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.25 }}
+        >
+          <Card className="border border-border shadow-sm hover:shadow-md transition-shadow bg-gradient-to-br from-accent/5 to-primary/5">
+            <CardContent className="p-5">
+              <div className="flex items-center gap-2 mb-4">
+                <TrendingUp className="w-5 h-5 text-accent" />
+                <h3 className="font-semibold text-foreground">Neighborhood Rankings</h3>
+              </div>
+              
+              <div className="space-y-3">
+                {neighborhoodRankings.map((neighborhood, index) => (
+                  <div 
+                    key={neighborhood.name}
+                    className="flex items-center justify-between p-3 rounded-lg bg-background/50 hover:bg-background/80 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm
+                        ${index === 0 ? 'bg-accent text-accent-foreground' : 'bg-muted text-muted-foreground'}`}
+                      >
+                        {index + 1}
+                      </div>
+                      <div>
+                        <div className="font-medium text-foreground">{neighborhood.name}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {neighborhood.donations} donations this week
+                        </div>
+                      </div>
+                    </div>
+                    <Badge 
+                      variant={neighborhood.trend === 'up' ? 'default' : 'secondary'}
+                      className="text-xs"
+                    >
+                      {neighborhood.trend === 'up' ? '↑' : '↓'}
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+              
+              {neighborhoodRankings[0].name === 'Logan Square' && (
+                <p className="text-sm text-center text-accent font-medium mt-4 italic">
+                  🎉 Logan Square made the most donations this week!
+                </p>
+              )}
             </CardContent>
           </Card>
         </motion.div>
