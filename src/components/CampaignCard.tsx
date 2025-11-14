@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Clock, TrendingUp, Heart } from 'lucide-react';
 import { Card } from './ui/card';
@@ -6,6 +6,8 @@ import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Campaign } from '@/types/campaign';
+import { supabase } from '@/integrations/supabase/client';
+import { useFavorites } from '@/hooks/useFavorites';
 
 interface CampaignCardProps {
   campaign: Campaign;
@@ -14,6 +16,19 @@ interface CampaignCardProps {
 
 export function CampaignCard({ campaign, onClick }: CampaignCardProps) {
   const progress = (campaign.itemsCollected / campaign.itemsNeeded) * 100;
+  const [userId, setUserId] = useState<string | undefined>();
+  const { toggleFavorite, isFavorite } = useFavorites(userId);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUserId(session?.user?.id);
+    });
+  }, []);
+
+  const handleFavoriteClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    await toggleFavorite(campaign.id);
+  };
 
   const getUrgencyBadge = (urgency: string) => {
     switch (urgency) {
@@ -50,15 +65,22 @@ export function CampaignCard({ campaign, onClick }: CampaignCardProps) {
           <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
             {getUrgencyBadge(campaign.urgency)}
             <motion.button
-              className="bg-card/90 backdrop-blur-sm rounded-full p-2 shadow-md"
+              className={`backdrop-blur-sm rounded-full p-2 shadow-md ${
+                isFavorite(campaign.id) 
+                  ? 'bg-accent/90' 
+                  : 'bg-card/90'
+              }`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              onClick={(e) => {
-                e.stopPropagation();
-                // Handle favorite
-              }}
+              onClick={handleFavoriteClick}
             >
-              <Heart className="w-4 h-4 text-accent" />
+              <Heart 
+                className={`w-4 h-4 ${
+                  isFavorite(campaign.id) 
+                    ? 'text-primary-foreground fill-current' 
+                    : 'text-accent'
+                }`} 
+              />
             </motion.button>
           </div>
         </div>

@@ -14,6 +14,9 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { BackButton } from '@/components/BackButton';
 import { ReferFriends } from '@/components/ReferFriends';
+import { FavoritesSection } from '@/components/FavoritesSection';
+import { CampaignDetail } from '@/components/CampaignDetail';
+import { Campaign } from '@/types/campaign';
 
 const savedEvents = [
   {
@@ -54,10 +57,56 @@ const neighborhoodRankings = [
   { name: 'Lincoln Park', donations: 128, trend: 'down' },
 ];
 
+// Mock campaigns data (same as in Index.tsx)
+const mockCampaigns: Campaign[] = [{
+  id: '1',
+  title: 'Winter Clothing Drive for Homeless Families',
+  organization: 'Community Shelter',
+  category: 'Clothes',
+  urgency: 'high' as const,
+  distance: 0.5,
+  deadline: 'Nov 20',
+  itemsNeeded: 150,
+  itemsCollected: 112,
+  image: 'https://images.unsplash.com/photo-1600186755589-84242bd8368f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbG90aGluZyUyMGRvbmF0aW9uJTIwYm94ZXN8ZW58MXx8fHwxNzYzMDUzODkxfDA&ixlib=rb-4.1.0&q=80&w=1080',
+  description: 'Help keep families warm this winter with donations of coats, gloves, and blankets.',
+  fullDescription: 'As winter approaches, many families in our community are facing the cold without adequate clothing.',
+  itemsList: [{name: 'Winter coats', needed: 50, collected: 38}],
+  impact: '12 coats = 1 family stays warm all winter.',
+  address: '456 Oak Street, Downtown',
+  hours: 'Mon-Fri: 9AM-6PM',
+  contact: {phone: '(555) 123-4567', email: 'donations@communityshelter.org'},
+  recentDonations: [{donor: 'Sarah M.', items: '5 coats', time: '2h ago'}],
+  lat: 40.7128,
+  lng: -74.006
+}, {
+  id: '2',
+  title: 'Thanksgiving Food Bank Collection',
+  organization: "St. Mary's Food Bank",
+  category: 'Food',
+  urgency: 'high' as const,
+  distance: 1.2,
+  deadline: 'Nov 15',
+  itemsNeeded: 500,
+  itemsCollected: 387,
+  image: 'https://images.unsplash.com/photo-1609139027234-57570f43f692?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmb29kJTIwYmFuayUyMGRvbmF0aW9ufGVufDF8fHx8MTc2MzA1Mzg5MXww&ixlib=rb-4.1.0&q=80&w=1080',
+  description: 'Donate non-perishable foods to help families celebrate Thanksgiving together.',
+  fullDescription: 'Help ensure every family has a meal to share this Thanksgiving.',
+  itemsList: [{name: 'Canned vegetables', needed: 100, collected: 78}],
+  impact: 'Every donation feeds a family.',
+  address: '789 Main St, Riverside',
+  hours: 'Daily: 8AM-8PM',
+  contact: {phone: '(555) 234-5678', email: 'info@stmarysfoodbank.org'},
+  recentDonations: [{donor: 'John D.', items: '20 cans', time: '1h ago'}],
+  lat: 40.7158,
+  lng: -74.008
+}];
+
 const Profile = () => {
   const { profile, loading, updateProfile } = useProfile();
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [userId, setUserId] = useState<string>('');
+  const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
   const impactPercentage = (impactStats.itemsGiven / impactStats.nextMilestone) * 100;
@@ -195,6 +244,15 @@ const Profile = () => {
 
         {/* Refer Friends Section */}
         {userId && <ReferFriends userId={userId} />}
+
+        {/* Favorites Section */}
+        {userId && (
+          <FavoritesSection 
+            userId={userId} 
+            allCampaigns={mockCampaigns}
+            onCampaignClick={setSelectedCampaign}
+          />
+        )}
 
         {/* Neighborhood */}
         <motion.div
@@ -394,6 +452,14 @@ const Profile = () => {
         currentPhoto={photo}
         onSave={handleSaveProfile}
       />
+
+      {/* Campaign Detail Modal */}
+      {selectedCampaign && (
+        <CampaignDetail
+          campaign={selectedCampaign}
+          onClose={() => setSelectedCampaign(null)}
+        />
+      )}
     </div>
   );
 };
