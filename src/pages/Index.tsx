@@ -8,7 +8,7 @@ import {
   User,
   Search,
   Heart,
-  Shirt,
+  Footprints,
   Laptop,
   Apple,
 } from 'lucide-react';
@@ -358,7 +358,7 @@ export default function Index() {
             ease: "easeInOut"
           }}
         >
-          <Shirt className="w-6 h-6" />
+          <Footprints className="w-6 h-6" />
         </motion.div>
         
         <motion.div
@@ -420,7 +420,7 @@ export default function Index() {
               transition={{ delay: 0.5 }}
             >
               <span className="inline-block">✨</span>
-              <span>Making kindness as simple as a tap</span>
+              <span>Find exactly where your donation is needed. Your kindness counts.</span>
               <span className="inline-block">✨</span>
             </motion.div>
           </motion.div>
