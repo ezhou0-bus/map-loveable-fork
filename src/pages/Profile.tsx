@@ -13,6 +13,7 @@ import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { BackButton } from '@/components/BackButton';
+import { ReferFriends } from '@/components/ReferFriends';
 
 const savedEvents = [
   {
@@ -56,6 +57,7 @@ const neighborhoodRankings = [
 const Profile = () => {
   const { profile, loading, updateProfile } = useProfile();
   const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [userId, setUserId] = useState<string>('');
   const navigate = useNavigate();
   const { toast } = useToast();
   const impactPercentage = (impactStats.itemsGiven / impactStats.nextMilestone) * 100;
@@ -64,6 +66,8 @@ const Profile = () => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (!session) {
         navigate('/auth');
+      } else {
+        setUserId(session.user.id);
       }
     });
   }, [navigate]);
@@ -188,6 +192,9 @@ const Profile = () => {
             </CardContent>
           </Card>
         </motion.div>
+
+        {/* Refer Friends Section */}
+        {userId && <ReferFriends userId={userId} />}
 
         {/* Neighborhood */}
         <motion.div
