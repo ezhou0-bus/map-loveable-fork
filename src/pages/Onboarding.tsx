@@ -268,10 +268,10 @@ export default function Onboarding() {
               <div className="space-y-6">
                 <div className="text-center mb-6">
                   <h2 className="text-2xl font-bold text-foreground mb-2">
-                    What Matters to You?
+                    What items can you give today?
                   </h2>
                   <p className="text-sm text-muted-foreground">
-                    Choose the causes you care about most
+                    Choose items ready for their next life
                   </p>
                 </div>
 
