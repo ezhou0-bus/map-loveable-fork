@@ -325,16 +325,86 @@ export default function Index() {
       </header>
 
       {/* Tagline */}
-      <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border-b border-border">
-        <div className="container mx-auto px-4 py-6">
-          <motion.p
-            className="text-center text-lg md:text-xl font-medium text-primary"
+      <div className="relative bg-gradient-to-br from-primary/10 via-background to-primary/5 border-b border-primary/10 overflow-hidden">
+        {/* Decorative floating hearts */}
+        <motion.div
+          className="absolute top-4 left-[10%] text-primary/20"
+          animate={{ 
+            y: [0, -10, 0],
+            rotate: [0, 5, 0]
+          }}
+          transition={{ 
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <Heart className="w-6 h-6" fill="currentColor" />
+        </motion.div>
+        
+        <motion.div
+          className="absolute bottom-4 right-[15%] text-primary/20"
+          animate={{ 
+            y: [0, -8, 0],
+            rotate: [0, -5, 0]
+          }}
+          transition={{ 
+            duration: 2.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.5
+          }}
+        >
+          <Heart className="w-5 h-5" fill="currentColor" />
+        </motion.div>
+
+        <motion.div
+          className="absolute top-6 right-[25%] text-primary/15"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.6, 0.3]
+          }}
+          transition={{ 
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        >
+          <Heart className="w-4 h-4" fill="currentColor" />
+        </motion.div>
+
+        <div className="container mx-auto px-4 py-8 relative z-10">
+          <motion.div
+            className="text-center"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            Give easily. Give locally.
-          </motion.p>
+            <motion.p
+              className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-primary via-primary/90 to-primary bg-clip-text text-transparent inline-block"
+              animate={{ 
+                opacity: [0.9, 1, 0.9]
+              }}
+              transition={{ 
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              Give easily. Give locally.
+            </motion.p>
+            <motion.div
+              className="mt-2 flex items-center justify-center gap-2 text-sm text-muted-foreground"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <span className="inline-block">✨</span>
+              <span>Making kindness as simple as a tap</span>
+              <span className="inline-block">✨</span>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
 
