@@ -107,16 +107,32 @@ export function OnboardingTour({ onComplete }: OnboardingTourProps) {
     }
 
     const baseStyle: any = {};
+    const tooltipWidth = 384; // max-w-sm = 384px
+    const screenWidth = window.innerWidth;
+    const padding = 16;
+    
+    // Calculate ideal position
+    let idealLeft = spotlightPosition.x + spotlightPosition.width / 2;
+    
+    // Check if tooltip would go off right edge
+    if (idealLeft + tooltipWidth / 2 > screenWidth - padding) {
+      idealLeft = screenWidth - tooltipWidth / 2 - padding;
+    }
+    
+    // Check if tooltip would go off left edge
+    if (idealLeft - tooltipWidth / 2 < padding) {
+      idealLeft = tooltipWidth / 2 + padding;
+    }
     
     switch (step.position) {
       case 'top':
         baseStyle.top = `${spotlightPosition.y - 20}px`;
-        baseStyle.left = `${spotlightPosition.x + spotlightPosition.width / 2}px`;
+        baseStyle.left = `${idealLeft}px`;
         baseStyle.transform = 'translate(-50%, -100%)';
         break;
       case 'bottom':
         baseStyle.top = `${spotlightPosition.y + spotlightPosition.height + 20}px`;
-        baseStyle.left = `${spotlightPosition.x + spotlightPosition.width / 2}px`;
+        baseStyle.left = `${idealLeft}px`;
         baseStyle.transform = 'translate(-50%, 0)';
         break;
       case 'left':
