@@ -46,7 +46,7 @@ export function DonationFlow({ campaign, onClose }: DonationFlowProps) {
       />
 
       <motion.div
-        className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg md:max-h-[90vh] bg-background rounded-3xl z-[60] overflow-y-auto shadow-2xl"
+        className="fixed inset-4 md:inset-auto md:left-1/2 md:top-[15%] md:-translate-x-1/2 md:w-full md:max-w-lg md:max-h-[80vh] bg-background rounded-3xl z-[60] overflow-y-auto shadow-2xl"
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
