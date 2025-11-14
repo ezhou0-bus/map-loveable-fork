@@ -419,9 +419,11 @@ export default function Index() {
               <Button variant="ghost" size="icon" className="rounded-full" onClick={() => setShowFilters(true)} data-onboarding="filter-button">
                 <SlidersHorizontal className="w-5 h-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full" onClick={() => setShowProfile(true)}>
-                <User className="w-5 h-5" />
-              </Button>
+              <Link to="/profile">
+                <Button variant="ghost" size="icon" className="rounded-full">
+                  <User className="w-5 h-5" />
+                </Button>
+              </Link>
             </motion.div>
           </div>
 
