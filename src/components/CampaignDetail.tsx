@@ -196,19 +196,30 @@ export function CampaignDetail({ campaign, onClose }: CampaignDetailProps) {
 
               <TabsContent value="items" className="space-y-3 mt-4">
                 <h3>Items Needed</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {campaign.itemsList.map((item, index) => (
-                    <motion.div
-                      key={index}
-                      className="flex items-center gap-3 p-4 bg-secondary/50 rounded-2xl"
-                      initial={{ x: -20, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: index * 0.05 }}
-                    >
-                      <CheckCircle2 className="w-5 h-5 text-primary" />
-                      <span>{item}</span>
-                    </motion.div>
-                  ))}
+                <div className="space-y-4">
+                  {campaign.itemsList.map((item, index) => {
+                    const itemProgress = (item.collected / item.needed) * 100;
+                    return (
+                      <motion.div
+                        key={index}
+                        className="p-4 bg-secondary/50 rounded-2xl space-y-3"
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <CheckCircle2 className="w-5 h-5 text-primary" />
+                            <span className="font-medium">{item.name}</span>
+                          </div>
+                          <span className="text-sm text-muted-foreground">
+                            {item.collected} / {item.needed}
+                          </span>
+                        </div>
+                        <Progress value={itemProgress} />
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </TabsContent>
 

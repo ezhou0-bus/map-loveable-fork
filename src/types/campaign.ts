@@ -14,7 +14,11 @@ export interface Campaign {
   image?: string;
   description: string;
   fullDescription: string;
-  itemsList: string[];
+  itemsList: Array<{
+    name: string;
+    needed: number;
+    collected: number;
+  }>;
   impact: string;
   address: string;
   hours: string;
