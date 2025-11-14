@@ -13,6 +13,7 @@ import {
   Apple,
 } from 'lucide-react';
 import { MapView } from '@/components/MapView';
+import { OnboardingTour } from '@/components/OnboardingTour';
 import { FilterPanel } from '@/components/FilterPanel';
 import { CampaignCard } from '@/components/CampaignCard';
 import { CampaignDetail } from '@/components/CampaignDetail';
@@ -217,6 +218,7 @@ export default function Index() {
   const [view, setView] = useState<'map' | 'list'>('map');
   const [showFilters, setShowFilters] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const [selectedMapDrive, setSelectedMapDrive] = useState<Campaign | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -226,6 +228,19 @@ export default function Index() {
     urgency: [] as string[],
     showOnlyActive: false,
   });
+
+  // Check if user has seen onboarding
+  React.useEffect(() => {
+    const hasSeenOnboarding = localStorage.getItem('givego_onboarding_tour_complete');
+    if (!hasSeenOnboarding) {
+      setShowOnboarding(true);
+    }
+  }, []);
+
+  const handleOnboardingComplete = () => {
+    localStorage.setItem('givego_onboarding_tour_complete', 'true');
+    setShowOnboarding(false);
+  };
 
   const filteredCampaigns = mockCampaigns.filter((campaign) => {
     if (searchQuery && !campaign.title.toLowerCase().includes(searchQuery.toLowerCase())) {
@@ -293,6 +308,7 @@ export default function Index() {
                 size="icon"
                 className="rounded-full"
                 onClick={() => setShowFilters(true)}
+                data-onboarding="filter-button"
               >
                 <SlidersHorizontal className="w-5 h-5" />
               </Button>
@@ -420,7 +436,7 @@ export default function Index() {
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-semibold">Discover Drives</h2>
               <Tabs value={view} onValueChange={(v) => setView(v as 'map' | 'list')}>
-                <TabsList className="rounded-full bg-secondary">
+                <TabsList className="rounded-full bg-secondary" data-onboarding="view-toggle">
                   <TabsTrigger value="map" className="rounded-full flex items-center gap-2">
                     <MapIcon className="w-4 h-4" />
                     <span className="hidden sm:inline">Map</span>
@@ -461,6 +477,7 @@ export default function Index() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
+                    data-onboarding={index === 0 ? "campaign-card" : undefined}
                   >
                     <CampaignCard
                       campaign={campaign}
@@ -539,6 +556,9 @@ export default function Index() {
           {view === 'map' ? <List className="w-6 h-6" /> : <MapIcon className="w-6 h-6" />}
         </Button>
       </motion.div>
+
+      {/* Onboarding Tour */}
+      {showOnboarding && <OnboardingTour onComplete={handleOnboardingComplete} />}
     </div>
   );
 }
