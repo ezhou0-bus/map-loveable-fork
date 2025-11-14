@@ -335,6 +335,7 @@ export default function Index() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const [selectedMapDrive, setSelectedMapDrive] = useState<Campaign | null>(null);
+  const [showCommunityHighlights, setShowCommunityHighlights] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({
     categories: [] as string[],
@@ -519,9 +520,9 @@ export default function Index() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className={`grid grid-cols-1 gap-6 ${showCommunityHighlights ? 'lg:grid-cols-3' : 'lg:grid-cols-1'}`}>
           {/* Left Column - Map/List */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className={`space-y-4 ${showCommunityHighlights ? 'lg:col-span-2' : 'lg:col-span-1'}`} style={{ maxWidth: showCommunityHighlights ? 'none' : '1400px', margin: showCommunityHighlights ? '0' : '0 auto' }}>
             {/* View Toggle */}
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-semibold">Discover Drives</h2>
@@ -545,7 +546,7 @@ export default function Index() {
           }} animate={{
             opacity: 1
           }}>
-                <MapView drives={filteredCampaigns} onDriveClick={setSelectedMapDrive} selectedDrive={selectedMapDrive} />
+                <MapView drives={filteredCampaigns} onDriveClick={setSelectedCampaign} selectedDrive={selectedMapDrive} />
               </motion.div>}
 
             {/* List View */}
@@ -566,23 +567,56 @@ export default function Index() {
                     <CampaignCard campaign={campaign} onClick={() => setSelectedCampaign(campaign)} />
                   </motion.div>)}
               </motion.div>}
-
-            {/* Selected Map Drive Card */}
-            {view === 'map' && selectedMapDrive && <motion.div initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }}>
-                <CampaignCard campaign={selectedMapDrive} onClick={() => setSelectedCampaign(selectedMapDrive)} />
-              </motion.div>}
           </div>
 
           {/* Right Column - Community Feed */}
-          <div className="hidden lg:block">
-            <CommunityFeed />
-          </div>
+          {showCommunityHighlights && (
+            <motion.div 
+              className="hidden lg:block"
+              initial={{ x: 300, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 300, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="sticky top-24">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-sm font-semibold text-muted-foreground">Community Highlights</h3>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowCommunityHighlights(false)}
+                    className="h-8 w-8 p-0"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </Button>
+                </div>
+                <CommunityFeed />
+              </div>
+            </motion.div>
+          )}
+          
+          {/* Restore button when minimized */}
+          {!showCommunityHighlights && (
+            <motion.div 
+              className="hidden lg:block fixed right-4 top-24 z-20"
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Button
+                onClick={() => setShowCommunityHighlights(true)}
+                className="rounded-full shadow-lg"
+                size="sm"
+              >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                Show Highlights
+              </Button>
+            </motion.div>
+          )}
         </div>
 
         {/* Mobile Community Feed */}

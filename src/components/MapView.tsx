@@ -96,8 +96,7 @@ export function MapView({ drives, onDriveClick, selectedDrive }: MapViewProps) {
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.2s ease;
-        position: relative;
+        transition: box-shadow 0.2s ease;
       `;
       
       // Render the category icon
@@ -217,40 +216,40 @@ export function MapView({ drives, onDriveClick, selectedDrive }: MapViewProps) {
       });
       popup.setHTML(previewContent);
 
-      // Hover events
+      // Hover events - only change visual appearance, don't transform
       el.addEventListener('mouseenter', () => {
-        el.style.transform = 'scale(1.15)';
+        el.style.boxShadow = '0 8px 20px rgba(0,0,0,0.4)';
         el.style.zIndex = '1000';
         popup.setLngLat([drive.lng, drive.lat]).addTo(map.current!);
       });
 
       el.addEventListener('mouseleave', () => {
-        el.style.transform = selectedDrive?.id === drive.id ? 'scale(1.15)' : 'scale(1)';
+        el.style.boxShadow = selectedDrive?.id === drive.id 
+          ? '0 8px 20px rgba(0,0,0,0.4)' 
+          : '0 4px 12px rgba(0,0,0,0.3)';
         el.style.zIndex = selectedDrive?.id === drive.id ? '999' : '1';
         popup.remove();
       });
 
-      // Scale if selected
+      // Highlight if selected
       if (selectedDrive?.id === drive.id) {
-        el.style.transform = 'scale(1.15)';
+        el.style.boxShadow = '0 8px 20px rgba(0,0,0,0.4)';
         el.style.zIndex = '999';
       }
 
-      // Create marker
-      const marker = new mapboxgl.Marker({ element: el, anchor: 'bottom' })
+      // Create marker with proper anchor to keep it locked to coordinates
+      const marker = new mapboxgl.Marker({ 
+        element: el, 
+        anchor: 'bottom'
+      })
         .setLngLat([drive.lng, drive.lat])
         .addTo(map.current!);
 
-      // Click event - open full detail popup
+      // Click event - open full detail popup (no flyTo to avoid position shifts)
       el.addEventListener('click', (e) => {
         e.stopPropagation();
         popup.remove(); // Remove hover popup
         onDriveClick(drive);
-        map.current?.flyTo({ 
-          center: [drive.lng, drive.lat],
-          zoom: 14,
-          duration: 1000
-        });
       });
 
       markersRef.current.push({ marker, popup });
